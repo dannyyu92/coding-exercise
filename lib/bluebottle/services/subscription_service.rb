@@ -18,9 +18,27 @@ module BlueBottle
       end
 
       def pause_subscription(customer, coffee)
-        subscription = self.data_store.subscriptions_by_customer_for_coffee(customer, coffee)
+        subscription = self.data_store.subscriptions_by_customer_for_coffee(
+          customer, 
+          coffee,
+          BlueBottle::Models::Subscription::ACTIVE_STATUS, 
+        )
         if subscription
           subscription.pause
+        else
+          raise "Customer '#{customer.full_name}'' does not have an "\
+            "active subscription to cofee '#{coffee.name}'"
+        end
+      end
+
+      def cancel_subscription(customer, coffee)
+        subscription = self.data_store.subscriptions_by_customer_for_coffee(
+          customer, 
+          coffee,
+          BlueBottle::Models::Subscription::ACTIVE_STATUS, 
+        )
+        if subscription
+          subscription.cancel
         else
           raise "Customer '#{customer.full_name}'' does not have an "\
             "active subscription to cofee '#{coffee.name}'"

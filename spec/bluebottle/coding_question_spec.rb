@@ -124,6 +124,8 @@ describe BlueBottle::CodingQuestion do
     context 'when Jack cancels his subscription to Bella Donovan,' do
       before do
         # Establish subscription here
+        subscription_service.subscribe(jack, bella_donovan)
+        subscription_service.cancel_subscription(jack, bella_donovan)  
       end
 
       xit 'Jack should have zero active subscriptions' do
@@ -135,6 +137,7 @@ describe BlueBottle::CodingQuestion do
       context 'when Jack resubscribes to Bella Donovan' do
         before do
           # Establish subscription here
+          subscription_service.subscribe(jack, bella_donovan)
         end
 
         xit 'Bella Donovan has two subscriptions, one active, one cancelled' do

@@ -10,7 +10,8 @@ module BlueBottle
 
       ACTIVE_STATUS = 'active'
       PAUSED_STATUS = 'paused'
-      VALID_STATUSES = [ACTIVE_STATUS, PAUSED_STATUS]
+      CANCELLED_STATUS = 'cancelled'
+      VALID_STATUSES = [ACTIVE_STATUS, PAUSED_STATUS, CANCELLED_STATUS]
 
       # Predicate methods for each status
       VALID_STATUSES.each do |status|
@@ -29,6 +30,10 @@ module BlueBottle
 
       def pause
         self.status = PAUSED_STATUS
+      end
+
+      def cancel
+        self.status = CANCELLED_STATUS
       end
 
       private
