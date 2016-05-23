@@ -6,10 +6,11 @@ module BlueBottle
       attr_accessor :id,
                     :status,
                     :customer_id,
-                    :coffee_ids
+                    :coffee_id
 
       ACTIVE_STATUS = 'active'
-      VALID_STATUSES = [ACTIVE_STATUS]
+      PAUSED_STATUS = 'paused'
+      VALID_STATUSES = [ACTIVE_STATUS, PAUSED_STATUS]
 
       # Predicate methods for each status
       VALID_STATUSES.each do |status|
@@ -18,12 +19,16 @@ module BlueBottle
         end
       end
 
-      def initialize(id, customer_id, coffee_ids=[], status=ACTIVE_STATUS)
+      def initialize(id, customer_id, coffee_id, status=ACTIVE_STATUS)
         @id = id
         @customer_id = customer_id
-        @coffee_ids = coffee_ids
+        @coffee_id = coffee_id
         @status = status
         validate_status
+      end
+
+      def pause
+        self.status = PAUSED_STATUS
       end
 
       private

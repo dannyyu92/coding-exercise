@@ -12,9 +12,19 @@ module BlueBottle
         subscription = BlueBottle::Models::Subscription.new(
           id=rand(1..99999), 
           customer_id=customer.id, 
-          coffee_ids=[coffee.id], 
+          coffee_id=coffee.id, 
         )
         self.data_store.add_subscription(subscription)
+      end
+
+      def pause_subscription(customer, coffee)
+        subscription = self.data_store.active_subscription_by_customer_for_coffee(customer, coffee)
+        if subscription
+          subscription.pause
+        else
+          raise "Customer '#{customer.full_name}'' does not have an "\
+            "active subscription to cofee '#{coffee.name}'"
+        end
       end
 
     end

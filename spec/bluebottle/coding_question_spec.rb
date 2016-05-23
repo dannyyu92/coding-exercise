@@ -66,7 +66,7 @@ describe BlueBottle::CodingQuestion do
     it 'Hayes Valley Espresso should have two customers subscribed to it' do
       subscriptions = store.active_subscriptions_for_coffee(hayes_valley_espresso)
       count = subscriptions.count
-      expect(count).to eql(2) 
+      expect(count).to eql(2)
     end
   end
 
@@ -74,6 +74,8 @@ describe BlueBottle::CodingQuestion do
     context 'when Liv pauses her subscription to Bella Donovan,' do
       before do
         # Establish subscription here
+        subscription_service.subscribe(liv, bella_donovan)
+        subscription_service.pause_subscription(liv, bella_donovan)        
       end
 
       xit 'Liv should have zero active subscriptions' do
