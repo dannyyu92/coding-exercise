@@ -42,8 +42,7 @@ describe BlueBottle::CodingQuestion do
 
     it 'Bella Donovan should have one customer subscribed to it' do
       subscriptions = store.subscriptions_for_coffee(
-        coffee=bella_donovan,
-        status=BlueBottle::Models::Subscription::ACTIVE_STATUS, 
+        coffee=bella_donovan, 
       )
       count = subscriptions.count
       expect(count).to eql(1) 
@@ -111,7 +110,12 @@ describe BlueBottle::CodingQuestion do
         expect(count).to eql(1)
       end
 
-      xit 'Bella Donovan should have one customers subscribed to it' do
+      it 'Bella Donovan should have one customers subscribed to it' do
+        subscriptions = store.subscriptions_for_coffee(
+          coffee=bella_donovan, 
+        )
+        count = subscriptions.count
+        expect(count).to eql(1)
       end
     end
   end
