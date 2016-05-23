@@ -28,12 +28,19 @@ describe BlueBottle::CodingQuestion do
   context 'Sally subscribes to Bella Donovan' do
     before do
       # Establish subscription to Bella Donovan here
+      subscription_service.subscribe(sally, bella_donovan)
     end
 
-    xit 'Sally should have one active subscription' do
+    it 'Sally should have one active subscription' do
+      subscriptions = BlueBottle::DataStore.active_subscriptions_for_customer(sally)
+      count = subscriptions.count
+      expect(count).to eql(1)
     end
 
-    xit 'Bella Donovan should have one customer subscribed to it' do
+    it 'Bella Donovan should have one customer subscribed to it' do
+      subscriptions = BlueBottle::DataStore.active_for_coffee(bella_donovan)
+      count = subscriptions.count
+      expect(count).to eql(1) 
     end
   end
 
