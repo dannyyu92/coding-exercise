@@ -62,10 +62,10 @@ module BlueBottle
       subscriptions_with_status(status).select { |s| s.coffee_id == coffee.id }
     end
 
-    def subscriptions_by_customer_for_coffee(customer, coffee, status=nil)
-      subscriptions = self.subscriptions_for_customer(customer, status)
+    def subscriptions_by_customer_for_coffee(customer, coffee)
+      subscriptions = self.subscriptions_for_customer(customer)
       subscriptions.select! { |s| s.coffee_id == coffee.id }
-      subscriptions.first
+      subscriptions
     end
 
   end
