@@ -37,5 +37,9 @@ module BlueBottle
       active_subscriptions.select { |s| s.customer_id == customer.id }
     end
 
+    def active_subscriptions_for_coffee(coffee)
+      active_subscriptions.select { |s| s.coffee_ids.include? coffee.id }
+    end
+
   end
 end
