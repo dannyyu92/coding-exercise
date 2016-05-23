@@ -178,9 +178,17 @@ describe BlueBottle::CodingQuestion do
     context 'when Jack tries to cancel his paused subscription to Bella Donovan,' do
       before do
         # Establish paused subscription here
+        subscription_service.subscribe(jack, bella_donovan)
+        subscription_service.pause_subscription(jack, bella_donovan)
       end
 
-      xit 'Jack raises an exception preventing him from cancelling a paused subscription' do
+      it 'Jack raises an exception preventing him from cancelling a paused subscription' do
+        expect do 
+          subscription_service.cancel_subscription(
+            jack, 
+            bella_donovan
+          )
+        end.to raise_exception
       end
     end
   end

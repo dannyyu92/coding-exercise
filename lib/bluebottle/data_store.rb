@@ -29,6 +29,18 @@ module BlueBottle
       @store[:subscriptions].select { |s| s.cancelled? }
     end 
 
+    def add_coffee(coffee)
+      @store[:coffees] << coffee
+    end
+
+    def add_customer(customer)
+      @store[:customers] << customer
+    end
+
+    def add_subscription(subscription)
+      @store[:subscriptions] << subscription
+    end
+
     def subscriptions_with_status(status=nil)
       case status
       when BlueBottle::Models::Subscription::ACTIVE_STATUS
@@ -40,18 +52,6 @@ module BlueBottle
       else
         subscriptions
       end
-    end
-
-    def add_coffee(coffee)
-      @store[:coffees] << coffee
-    end
-
-    def add_customer(customer)
-      @store[:customers] << customer
-    end
-
-    def add_subscription(subscription)
-      @store[:subscriptions] << subscription
     end
 
     def subscriptions_for_customer(customer, status=nil)
