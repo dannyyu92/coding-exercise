@@ -128,10 +128,22 @@ describe BlueBottle::CodingQuestion do
         subscription_service.cancel_subscription(jack, bella_donovan)  
       end
 
-      xit 'Jack should have zero active subscriptions' do
+      it 'Jack should have zero active subscriptions' do
+        subscriptions = store.subscriptions_for_customer(
+          customer=jack, 
+          status=BlueBottle::Models::Subscription::ACTIVE_STATUS,
+        )
+        count = subscriptions.count
+        expect(count).to eql(0)
       end
 
-      xit 'Bella Donovan should have zero active customers subscribed to it' do
+      it 'Bella Donovan should have zero active customers subscribed to it' do
+        subscriptions = store.subscriptions_for_coffee(
+          coffee=bella_donovan, 
+          status=BlueBottle::Models::Subscription::ACTIVE_STATUS, 
+        )
+        count = subscriptions.count
+        expect(count).to eql(0)
       end
 
       context 'when Jack resubscribes to Bella Donovan' do
@@ -140,7 +152,22 @@ describe BlueBottle::CodingQuestion do
           subscription_service.subscribe(jack, bella_donovan)
         end
 
-        xit 'Bella Donovan has two subscriptions, one active, one cancelled' do
+        it 'Bella Donovan has two subscriptions, one active, one cancelled' do
+          # Check for one active subscription
+          active_subscriptions = store.subscriptions_for_coffee(
+            coffee=bella_donovan, 
+            status=BlueBottle::Models::Subscription::ACTIVE_STATUS, 
+          )
+          count = active_subscriptions.count
+          expect(count).to eql(1)
+
+          # Check for one cancelled subscription
+          cancelled_subscriptions = store.subscriptions_for_coffee(
+            coffee=bella_donovan, 
+            status=BlueBottle::Models::Subscription::CANCELLED_STATUS, 
+          )
+          count = cancelled_subscriptions.count
+          expect(count).to eql(1)
         end
 
       end

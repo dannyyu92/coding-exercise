@@ -25,12 +25,18 @@ module BlueBottle
       @store[:subscriptions].select { |s| s.paused? }
     end
 
+    def cancelled_subscriptions
+      @store[:subscriptions].select { |s| s.cancelled? }
+    end 
+
     def subscriptions_with_status(status=nil)
       case status
       when BlueBottle::Models::Subscription::ACTIVE_STATUS
         active_subscriptions
       when BlueBottle::Models::Subscription::PAUSED_STATUS
         paused_subscriptions
+      when BlueBottle::Models::Subscription::CANCELLED_STATUS
+        cancelled_subscriptions
       else
         subscriptions
       end
