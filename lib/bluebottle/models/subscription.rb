@@ -11,6 +11,13 @@ module BlueBottle
       ACTIVE_STATUS = 'active'
       VALID_STATUSES = [ACTIVE_STATUS]
 
+      # Predicate methods for each status
+      VALID_STATUSES.each do |status|
+        define_method "#{status}?" do 
+          self.status == status
+        end
+      end
+
       def initialize(id, customer_id, coffee_ids=[], status=ACTIVE_STATUS)
         @id = id
         @customer_id = customer_id

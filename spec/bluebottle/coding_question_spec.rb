@@ -32,13 +32,13 @@ describe BlueBottle::CodingQuestion do
     end
 
     it 'Sally should have one active subscription' do
-      subscriptions = BlueBottle::DataStore.active_subscriptions_for_customer(sally)
+      subscriptions = store.active_subscriptions_for_customer(sally)
       count = subscriptions.count
       expect(count).to eql(1)
     end
 
     it 'Bella Donovan should have one customer subscribed to it' do
-      subscriptions = BlueBottle::DataStore.active_for_coffee(bella_donovan)
+      subscriptions = store.active_subscriptions_for_coffee(bella_donovan)
       count = subscriptions.count
       expect(count).to eql(1) 
     end
