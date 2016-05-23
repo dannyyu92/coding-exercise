@@ -21,6 +21,21 @@ module BlueBottle
       @store[:subscriptions].select { |s| s.active? }
     end
 
+    def paused_subscriptions
+      @store[:subscriptions].select { |s| s.paused? }
+    end
+
+    def subscriptions_with_status(status=nil)
+      case status
+      when BlueBottle::Models::Subscription::ACTIVE_STATUS
+        active_subscriptions
+      when BlueBottle::Models::Subscription::PAUSED_STATUS
+        paused_subscriptions
+      else
+        subscriptions
+      end
+    end
+
     def add_coffee(coffee)
       @store[:coffees] << coffee
     end
@@ -33,16 +48,16 @@ module BlueBottle
       @store[:subscriptions] << subscription
     end
 
-    def active_subscriptions_for_customer(customer)
-      active_subscriptions.select { |s| s.customer_id == customer.id }
+    def subscriptions_for_customer(customer, status=nil)
+      subscriptions_with_status(status).select { |s| s.customer_id == customer.id }
     end
 
-    def active_subscriptions_for_coffee(coffee)
-      active_subscriptions.select { |s| s.coffee_id == coffee.id }
+    def subscriptions_for_coffee(coffee, status=nil)
+      subscriptions_with_status(status).select { |s| s.coffee_id == coffee.id }
     end
 
-    def active_subscription_by_customer_for_coffee(customer, coffee)
-      subscriptions = self.active_subscriptions_for_customer(customer)
+    def subscriptions_by_customer_for_coffee(customer, coffee, status=nil)
+      subscriptions = self.subscriptions_for_customer(customer, status)
       subscriptions.select! { |s| s.coffee_id == coffee.id }
       subscriptions.first
     end

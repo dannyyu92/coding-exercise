@@ -18,7 +18,7 @@ module BlueBottle
       end
 
       def pause_subscription(customer, coffee)
-        subscription = self.data_store.active_subscription_by_customer_for_coffee(customer, coffee)
+        subscription = self.data_store.subscriptions_by_customer_for_coffee(customer, coffee)
         if subscription
           subscription.pause
         else

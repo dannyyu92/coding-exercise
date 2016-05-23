@@ -32,13 +32,19 @@ describe BlueBottle::CodingQuestion do
     end
 
     it 'Sally should have one active subscription' do
-      subscriptions = store.active_subscriptions_for_customer(sally)
+      subscriptions = store.subscriptions_for_customer(
+        customer=sally,
+        status=BlueBottle::Models::Subscription::ACTIVE_STATUS, 
+      )
       count = subscriptions.count
       expect(count).to eql(1)
     end
 
     it 'Bella Donovan should have one customer subscribed to it' do
-      subscriptions = store.active_subscriptions_for_coffee(bella_donovan)
+      subscriptions = store.subscriptions_for_coffee(
+        coffee=bella_donovan,
+        status=BlueBottle::Models::Subscription::ACTIVE_STATUS, 
+      )
       count = subscriptions.count
       expect(count).to eql(1) 
     end
@@ -52,19 +58,28 @@ describe BlueBottle::CodingQuestion do
     end
 
     it 'Liv should have one active subscription' do
-      subscriptions = store.active_subscriptions_for_customer(liv)
+      subscriptions = store.subscriptions_for_customer(
+        customer=liv, 
+        status=BlueBottle::Models::Subscription::ACTIVE_STATUS, 
+      )
       count = subscriptions.count
       expect(count).to eql(1)
     end
 
     it 'Elijah should have one active subscription' do
-      subscriptions = store.active_subscriptions_for_customer(elijah)
+      subscriptions = store.subscriptions_for_customer(
+        customer=elijah,
+        status=BlueBottle::Models::Subscription::ACTIVE_STATUS, 
+      )
       count = subscriptions.count
       expect(count).to eql(1)
     end
 
     it 'Hayes Valley Espresso should have two customers subscribed to it' do
-      subscriptions = store.active_subscriptions_for_coffee(hayes_valley_espresso)
+      subscriptions = store.subscriptions_for_coffee(
+        coffee=hayes_valley_espresso, 
+        status=BlueBottle::Models::Subscription::ACTIVE_STATUS, 
+      )
       count = subscriptions.count
       expect(count).to eql(2)
     end
@@ -78,10 +93,22 @@ describe BlueBottle::CodingQuestion do
         subscription_service.pause_subscription(liv, bella_donovan)        
       end
 
-      xit 'Liv should have zero active subscriptions' do
+      it 'Liv should have zero active subscriptions' do
+        subscriptions = store.subscriptions_for_customer(
+          customer=liv,
+          status=BlueBottle::Models::Subscription::ACTIVE_STATUS, 
+        )
+        count = subscriptions.count
+        expect(count).to eql(0)
       end
 
-      xit 'Liv should have a paused subscription' do
+      it 'Liv should have a paused subscription' do
+        subscriptions = store.subscriptions_for_customer(
+          customer=liv, 
+          status=BlueBottle::Models::Subscription::PAUSED_STATUS,           
+        )
+        count = subscriptions.count
+        expect(count).to eql(1)
       end
 
       xit 'Bella Donovan should have one customers subscribed to it' do
